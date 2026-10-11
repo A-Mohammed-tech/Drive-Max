@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+/* ---------- Brand tokens (colours taken from the company letterhead) ---------- */
+@theme {
+  --color-brand-blue: #0a5aaa;
+  --color-brand-blue-dark: #07457f;
+  --color-brand-navy: #062a52;
+  --color-brand-red: #e3101d;
+  --color-brand-red-dark: #b80c17;
+  --color-ink: #10202f;
+  --color-mist: #f2f6fb;
+
+  --font-sans: "Public Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Archivo", "Public Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ---------- Base ---------- */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem; /* keeps section titles clear of the sticky header */
+}
+
+body {
+  margin: 0;
+  background: #ffffff;
+  color: #10202f;
+  font-family: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.font-display {
+  font-stretch: 112%;
+  letter-spacing: -0.015em;
+}
+
+:focus-visible {
+  outline: 3px solid #e3101d;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- Motion ---------- */
+
+/* Scroll reveal (see components/Reveal.jsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 650ms ease, transform 650ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Slow continuous wheel rotation */
+@keyframes drivemax-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin-slow {
+  animation: drivemax-spin 70s linear infinite;
+}
+
+/* Hero page-load sequence: text rises, wheel rolls in, speed lines streak */
+@keyframes drivemax-rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hero-rise {
+  animation: drivemax-rise 800ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes drivemax-roll {
+  from {
+    opacity: 0;
+    transform: translateX(90px) rotate(-120deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.wheel-in {
+  animation: drivemax-roll 1300ms cubic-bezier(0.16, 0.8, 0.2, 1) 200ms both;
+}
+
+@keyframes drivemax-streak {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+.speed-line {
+  transform-box: fill-box;
+  transform-origin: right center;
+  animation: drivemax-streak 700ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .spin-slow,
+  .hero-rise,
+  .wheel-in,
+  .speed-line {
+    animation: none;
+  }
+}
